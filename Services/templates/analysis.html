@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Clicks per Day</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    #toggle-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #4CAF50;
+      color: white;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <button id="toggle-button">Toggle View</button>
+  <canvas id="clicksChart" style="width: 30%; height: 100px;"></canvas>
+  <script>
+    // Get the canvas element
+    const ctx = document.getElementById('clicksChart').getContext('2d');
+
+    // Create the chart
+    const clicksChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: [21,22],
+        datasets: [{
+          label: 'Clicks',
+          data: [{{ clicks }}],
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+
+    // Add a toggle button to switch between month-wise and day-wise views
+    const toggleButton = document.getElementById('toggle-button');
+    let isMonthView = true;
+
+    toggleButton.addEventListener('click', () => {
+      isMonthView = !isMonthView;
+
+      if (isMonthView) {
+        // Switch to month-wise view
+        clicksChart.data.labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        clicksChart.data.datasets[0].data = [{{ clicks }}];
+      } else {
+        // Switch to day-wise view
+        const currentMonth = new Date().getMonth();
+        const daysInMonth = new Date(new Date().getFullYear(), currentMonth + 1, 0).getDate();
+        clicksChart.data.labels = Array.from({ length: daysInMonth }, (_, i) => i + 1);
+        clicksChart.data.datasets[0].data = Array.from({ length: daysInMonth }, () => Math.floor(Math.random() * 100));
+      }
+
+      clicksChart.update();
+    });
+  </script>
+</body>
+</html>
