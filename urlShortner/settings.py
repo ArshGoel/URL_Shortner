@@ -81,19 +81,19 @@ WSGI_APPLICATION = 'urlShortner.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'defaultdb',     # Replace with your Aiven database name
-#         'USER': 'avnadmin',          # Replace with your Aiven database username
-#         'PASSWORD': 'AVNS_ZBxpNZDSgH38UEicwgp',      # Replace with your Aiven database password
-#         'HOST': 'url-shortner-arshgoel16-ba75.e.aivencloud.com',        # Replace with your Aiven database hostname
-#         'PORT': '12743',        # Replace with your Aiven database port
-#         'OPTIONS': {
-#             'sslmode': 'require',         # Enforce SSL for Aiven connections
-#         },
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'defaultdb',     # Replace with your Aiven database name
+        'USER': 'avnadmin',          # Replace with your Aiven database username
+        'PASSWORD': 'AVNS_ZBxpNZDSgH38UEicwgp',      # Replace with your Aiven database password
+        'HOST': 'url-shortner-arshgoel16-ba75.e.aivencloud.com',        # Replace with your Aiven database hostname
+        'PORT': '12743',        # Replace with your Aiven database port
+        'OPTIONS': {
+            'sslmode': 'require',         # Enforce SSL for Aiven connections
+        },
+    }
+}
 # DATABASES = {
 #     'default': {
 #         "ENGINE": "django.db.backends.postgresql",
