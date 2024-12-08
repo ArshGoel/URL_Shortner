@@ -6,4 +6,4 @@ sqlparse>=0.4.3
 tzdata>=2022.7
 whitenoise>=6.8.2
 # psycopg2==2.9.10
-# psycopg2-binary==2.9.10
+psycopg2-binary==2.9.10
