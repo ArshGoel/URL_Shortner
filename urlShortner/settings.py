@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 import os
 from pathlib import Path
-import psycopg2
+# import jwt
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -32,20 +32,34 @@ ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
+SITE_ID = 1
+
 INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.admin',
-    'django.contrib.sites',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "Accounts.apps.AccountsConfig",
-    "Services.apps.ServicesConfig"
+    "Services.apps.ServicesConfig",
+    'django.contrib.sites',
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.google",
 ]
 
-SITE_ID = 1
+SOCIALACCOUNT_PROVIDERS = {
+    "google":{
+        "SCOPE":[
+            "profile",
+            "email"
+        ],
+        "AUTH_PARAMS":{"access_type":"online"}
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -56,6 +70,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "allauth.account.middleware.AccountMiddleware"
 ]
 
 ROOT_URLCONF = 'urlShortner.urls'
@@ -152,3 +167,11 @@ STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles_build',"static")
 # EMAIL_PORT = 587
 # EMAIL_HOST_USER = "legend163104@gmail.com"
 # EMAIL_HOST_PASSWORD = "rwudmuzzrqaneemx"
+
+AUTHENTICATION_BACKENDS = {
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend"
+}
+
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"

@@ -8,5 +8,7 @@ urlpatterns = [
     path("",TemplateView.as_view(template_name = "home.html")),
     path("auth/", include('Accounts.urls')),
     path("dashboard/", include('Services.urls')),
-    path("<str:alias>", redirect_to_target_page)
+    path("<str:alias>", redirect_to_target_page),
+    path("accounts/",include("allauth.urls")),
+    # path("/",include("users.urls"))
 ]
