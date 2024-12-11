@@ -19,6 +19,11 @@
                 <a class="text-decoration-none" href="{% provider_login_url 'google' %}?next=/">Google Login</a> 
                 <br>
             </div>
+            {% providers_media_js %}
+            <div class="text-left">
+                <a class="text-decoration-none" href="{% provider_login_url "facebook" %}">Facebook Connect</a> 
+                <br>
+            </div>
 
             <input type="submit" class="btn-lg btn-outline-primary my-3 ">
         </form>
