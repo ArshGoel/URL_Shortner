@@ -1,142 +1,85 @@
 {% extends "base.html" %}
-{% load i18n %}
 {% load static %}
-{% block title %}Profile | Url Shortner{% endblock title %}
+{% load i18n %}
+{% block title %}Profile | URL Shortener{% endblock title %}
 {% block profileactive %}active{% endblock profileactive %}
 {% block content %}
 
 <div class="container">
-    <div class="row">
-      <div class="col-md-4">
-        <div class="card mb-3">
-          <div class="card-body">
-            <div class="text-center">
-              <img src="{% static "img/picture.jpeg" %}" alt="Profile Image" class="rounded-circle" style="width: 100px; height: 100px;">
-            </div>
-            <h5 class="card-title">Username: {{ request.user.username }}</h5>
-            <p class="card-text">Email: {{ request.user.email }}</p>
-            <p class="card-text">Joined: {{ request.user.date_joined }}</p>
+  <div class="row">
+    <!-- Left Side: Profile Card -->
+    <div class="col-md-4">
+      <div class="card mb-3">
+        <div class="card-body">
+          <div class="text-center">
+            <img src="{% static 'img/picture.jpeg' %}" alt="Profile Image" class="rounded-circle" style="width: 100px; height: 100px;">
           </div>
-          {% if form.accounts %}
-    <p>{% blocktrans %}You can sign in to your account using any of the following third party accounts:{% endblocktrans %}</p>
-
-
-    <form method="post" action="{% url 'socialaccount_connections' %}">
-    {% csrf_token %}
-
-    <fieldset>
-    {% if form.non_field_errors %}
-    <div id="errorMsg">{{ form.non_field_errors }}</div>
-    {% endif %}
-
-    {% for base_account in form.accounts %}
-    {% with base_account.get_provider_account as account %}
-    <div>
-    <label for="id_account_{{ base_account.id }}">
-    <input id="id_account_{{ base_account.id }}" type="radio" name="account" value="{{ base_account.id }}"/>
-    <span class="socialaccount_provider {{ base_account.provider }} {{ account.get_brand.id }}">{{account.get_brand.name}}</span>
-    -> {{ account }}
-    </label>
-    </div>
-    {% endwith %}
-    {% endfor %}
-
-    <div class="my-2">
-    <button class="btn btn-dark" type="submit">{% trans 'Remove' %}</button>
-    </div>
-
-    </fieldset>
-
-    </form>
-
-    {% else %}
-    <p>{% trans 'You currently have no social network accounts connected to this account.' %}</p>
-    {% endif %}
-
-    <hr>
-    <h3>{% trans 'Add a 3rd Party Account' %}</h3>
-
-    <div class="socialaccount_providers">
-        {% include "socialaccount/snippets/provider_list.html" with process="connect" %}
-    </div>
-
-    {% include "socialaccount/snippets/login_extra.html" %}
+          <h5 class="card-title">Username: {{ request.user.username }}</h5>
+          <p class="card-text">Email: {{ request.user.email }}</p>
+          <p class="card-text">Joined: {{ request.user.date_joined }}</p>
         </div>
       </div>
-      <div class="col-md-8">
-        <div class="card mb-3">
-          <div class="card-body">
-            <h5 class="card-title">Profile Details</h5>
-            <form>
-              <div class="form-group">
-                <label for="username">Username:</label>
-                <input type="text" class="form-control" id="username" value="{{ request.user.username }}">
-              </div>
-              <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" value="{{ request.user.email }}">
-              </div>
-              <div class="form-group">
-                <label for="bio">Bio:</label>
-                <textarea class="form-control" id="bio">{{ request.user.bio }}</textarea>
-              </div>
+
+      <!-- Social Account Connections -->
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">{% trans "Account Connections" %}</h5>
+
+          {% if form.accounts %}
+            <p>{% blocktrans %}You can sign in to your account using any of the following third party accounts:{% endblocktrans %}</p>
+            <form method="post" action="{% url 'socialaccount_connections' %}">
+              {% csrf_token %}
+              <fieldset>
+                {% for base_account in form.accounts %}
+                  {% with base_account.get_provider_account as account %}
+                  <div>
+                    <label for="id_account_{{ base_account.id }}">
+                      <input id="id_account_{{ base_account.id }}" type="radio" name="account" value="{{ base_account.id }}"/>
+                      <span class="socialaccount_provider {{ base_account.provider }} {{ account.get_brand.id }}">{{ account.get_brand.name }}</span>
+                      -> {{ account }}
+                    </label>
+                  </div>
+                  {% endwith %}
+                {% endfor %}
+                <button class="btn btn-danger btn-sm mt-2" type="submit">{% trans 'Remove' %}</button>
+              </fieldset>
             </form>
+          {% else %}
+            <p>{% trans 'You currently have no social network accounts connected to this account.' %}</p>
+          {% endif %}
+
+          <hr>
+          <h6>{% trans 'Add a 3rd Party Account' %}</h6>
+          <div class="socialaccount_providers">
+            {% include "socialaccount/snippets/provider_list.html" with process="connect" %}
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Side: Profile Details -->
+    <div class="col-md-8">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Profile Details</h5>
+          <form>
+            <div class="form-group">
+              <label for="username">Username:</label>
+              <input type="text" class="form-control" id="username" value="{{ request.user.username }}">
+            </div>
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input type="email" class="form-control" id="email" value="{{ request.user.email }}">
+            </div>
+            <div class="form-group">
+              <label for="bio">Bio:</label>
+              <textarea class="form-control" id="bio">{{ request.user.bio }}</textarea>
+            </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
+</div>
+
 {% endblock content %}
-
-
-{% comment %} {% block head_title %}{% trans "Account Connections" %}{% endblock %}
-
-{% block content %}
-<div class="text-center">
-    <h1>{% trans "Account Connections" %}</h1>
-
-    {% if form.accounts %}
-    <p>{% blocktrans %}You can sign in to your account using any of the following third party accounts:{% endblocktrans %}</p>
-
-
-    <form method="post" action="{% url 'socialaccount_connections' %}">
-    {% csrf_token %}
-
-    <fieldset>
-    {% if form.non_field_errors %}
-    <div id="errorMsg">{{ form.non_field_errors }}</div>
-    {% endif %}
-
-    {% for base_account in form.accounts %}
-    {% with base_account.get_provider_account as account %}
-    <div>
-    <label for="id_account_{{ base_account.id }}">
-    <input id="id_account_{{ base_account.id }}" type="radio" name="account" value="{{ base_account.id }}"/>
-    <span class="socialaccount_provider {{ base_account.provider }} {{ account.get_brand.id }}">{{account.get_brand.name}}</span>
-    -> {{ account }}
-    </label>
-    </div>
-    {% endwith %}
-    {% endfor %}
-
-    <div class="my-2">
-    <button class="btn btn-dark" type="submit">{% trans 'Remove' %}</button>
-    </div>
-
-    </fieldset>
-
-    </form>
-
-    {% else %}
-    <p>{% trans 'You currently have no social network accounts connected to this account.' %}</p>
-    {% endif %}
-
-    <hr>
-    <h3>{% trans 'Add a 3rd Party Account' %}</h3>
-
-    <div class="socialaccount_providers">
-        {% include "socialaccount/snippets/provider_list.html" with process="connect" %}
-    </div>
-
-    {% include "socialaccount/snippets/login_extra.html" %}
-</div> {% endcomment %}
