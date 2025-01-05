@@ -3,54 +3,65 @@
 {% block title %}Profile | Url Shortner{% endblock title %}
 {% block profileactive %}active{% endblock profileactive %}
 {% block content %}
+
 <head>
-  <script type='text/javascript' src='//pl25479109.profitablecpmrate.com/73/79/28/737928097eea1e2c6f3807a01214239d.js'></script>
+    <!-- Popunder -->
+    <script type='text/javascript'
+        src='//forwardfishermanbidding.com/b4/27/56/b42756ef52174ef8b5f967bbee7d9dd2.js'></script>
+    <!-- Popunder -->
 </head>
 <div class="container">
-    <div class="row">
-      <div class="col-md-4">
-        <div class="card mb-3">
-          <div class="card-body">
-            <div class="text-center">
-              <img src="{% static "img/picture.jpeg" %}" alt="Profile Image" class="rounded-circle" style="width: 100px; height: 100px;">
-            </div>
-            <h5 class="card-title">Username: {{ request.user.username }}</h5>
-            <p class="card-text">Email: {{ request.user.email }}</p>
-            <p class="card-text">Joined: {{ request.user.date_joined }}</p>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card mb-3">
+        <div class="card-body">
+          <div class="text-center">
+            <img src="{% static " img/picture.jpeg" %}" alt="Profile Image" class="rounded-circle"
+              style="width: 100px; height: 100px;">
           </div>
+          <h5 class="card-title">Username: {{ request.user.username }}</h5>
+          <p class="card-text">Email: {{ request.user.email }}</p>
+          <p class="card-text">Joined: {{ request.user.date_joined }}</p>
         </div>
       </div>
-      <div class="col-md-8">
-        <div class="card mb-3">
-          <div class="card-body">
-            <h5 class="card-title">Profile Details</h5>
-            <form>
-              <div class="form-group">
-                <label for="username">Username:</label>
-                <input type="text" class="form-control" id="username" value="{{ request.user.username }}">
-              </div>
-              <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" value="{{ request.user.email }}">
-              </div>
-              <div class="form-group">
-                <label for="bio">Bio:</label>
-                <textarea class="form-control" id="bio">{{ request.user.bio }}</textarea>
-              </div>
-            </form>
-          </div>
+    </div>
+    <div class="col-md-8">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Profile Details</h5>
+          <form>
+            <div class="form-group">
+              <label for="username">Username:</label>
+              <input type="text" class="form-control" id="username" value="{{ request.user.username }}">
+            </div>
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input type="email" class="form-control" id="email" value="{{ request.user.email }}">
+            </div>
+            <div class="form-group">
+              <label for="bio">Bio:</label>
+              <textarea class="form-control" id="bio">{{ request.user.bio }}</textarea>
+            </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
-  <script type="text/javascript">
-    atOptions = {
-      'key' : 'c8ebb775ec1bc99f5c65ec8040414ed6',
-      'format' : 'iframe',
-      'height' : 90,
-      'width' : 728,
-      'params' : {}
-    };
-  </script>
-  <script type="text/javascript" src="//forwardfishermanbidding.com/c8ebb775ec1bc99f5c65ec8040414ed6/invoke.js"></script>
+</div>
+<!-- banner -->
+<script type="text/javascript">
+  atOptions = {
+    'key': 'c8ebb775ec1bc99f5c65ec8040414ed6',
+    'format': 'iframe',
+    'height': 90,
+    'width': 728,
+    'params': {}
+  };
+</script>
+<script type="text/javascript" src="//forwardfishermanbidding.com/c8ebb775ec1bc99f5c65ec8040414ed6/invoke.js"></script>
+<!-- banner -->
+<!-- social bar -->
+<script type='text/javascript'
+  src='//pl25479109.profitablecpmrate.com/73/79/28/737928097eea1e2c6f3807a01214239d.js'></script>
+<!-- social bar -->
 {% endblock content %}
