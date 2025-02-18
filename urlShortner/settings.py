@@ -187,6 +187,8 @@ STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles_build',"static")
 # EMAIL_HOST_USER = "legend163104@gmail.com"
 # EMAIL_HOST_PASSWORD = "rwudmuzzrqaneemx"
 
+SOCIALACCOUNT_LOGIN_ON_GET = True
+
 AUTHENTICATION_BACKENDS = {
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend"
