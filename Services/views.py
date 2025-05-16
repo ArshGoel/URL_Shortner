@@ -13,19 +13,20 @@ def getAlias():
 def dashboard(request):
     if request.method == "POST":
         URL = request.POST["URL"]
-        alias = request.POST.get("alias",None)
+        alias = request.POST.get("alias", None)
         if not alias:
             alias = getAlias()
         try:
-            Url.objects.create(user=request.user,target_url=URL,alias=alias).save()
-            messages.success(request,"success")
+            Url.objects.create(user=request.user, target_url=URL, alias=alias)
+            messages.success(request, "success")
             return redirect("dashboard")
         except:
-            messages.error(request,"alias already under use")
-            return render(request,"dashboard.html",{"url":URL,"alias":alias})
-    
+            messages.error(request, "alias already under use")
+            return render(request, "dashboard.html", {"url": URL, "alias": alias})
+
     site = get_current_site(request)
-    return render(request,"dashboard.html",{"domain":site})
+    return render(request, "dashboard.html", {"domain": site})
+
 
 
 def redirect_to_target_page(request,alias):
