@@ -1,27 +1,33 @@
-from django.shortcuts import render,redirect
+import datetime
+import random,string
 from Services.models import Url
 from django.contrib import messages
-import random,string
-import datetime
+from django.db import IntegrityError
+from django.shortcuts import render,redirect
 from django.contrib.sites.shortcuts import get_current_site
 # from django.http import JsonResponse
 
 def getAlias():
     return "".join([random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(8)])
 
-# Create your views here.
 def dashboard(request):
     if request.method == "POST":
         URL = request.POST["URL"]
         alias = request.POST.get("alias", None)
         if not alias:
             alias = getAlias()
+
+        # Optional: check before insert to give faster feedback
+        if Url.objects.filter(alias=alias).exists():
+            messages.error(request, "Alias already under use")
+            return render(request, "dashboard.html", {"url": URL, "alias": alias})
+
         try:
             Url.objects.create(user=request.user, target_url=URL, alias=alias)
-            messages.success(request, "success")
+            messages.success(request, "Success")
             return redirect("dashboard")
-        except:
-            messages.error(request, "alias already under use")
+        except IntegrityError:
+            messages.error(request, "Alias already under use")
             return render(request, "dashboard.html", {"url": URL, "alias": alias})
 
     site = get_current_site(request)
