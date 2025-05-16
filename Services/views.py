@@ -8,7 +8,7 @@ from django.contrib.sites.shortcuts import get_current_site
 # from django.http import JsonResponse
 
 def getAlias():
-    return "".join([random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(8)])
+    return "".join([random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(20)])
 
 def dashboard(request):
     if request.method == "POST":
